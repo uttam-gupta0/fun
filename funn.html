@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMW Fun Mode 😂</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: white;
+}
+
+/* Screens */
+.screen {
+    display: none;
+    padding: 20px;
+}
+
+.active {
+    display: block;
+}
+
+/* Buttons */
+button {
+    padding: 12px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.yes { background: #00ffcc; }
+.no { background: white; color: black; position: relative; }
+
+/* Card */
+.card {
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 320px;
+    margin: 20px auto;
+}
+
+/* Floating emojis */
+.emoji {
+    position: fixed;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+    <h1>🚨 BMW SYSTEM DETECTED 😂</h1>
+    <p>Mini size… max brightness 🔦😏</p>
+    <h2>Start scan? 😈</h2>
+
+    <button class="yes" onclick="nextScreen(2)">Sareee 😍</button>
+    <button class="no" onclick="runAway()">Illa 😂</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+    <h2>Analyzing BMW brain... 🧠😂</h2>
+    <p>Loading attitude report...</p>
+
+    <div id="bar" style="width:0;height:10px;background:#00ffcc;margin:20px auto;"></div>
+
+    <!-- NEW FLOATING BUTTON -->
+    <button class="no" onclick="runAway()">Illa 😂</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+    <h2>Results Found 😎</h2>
+
+    <div class="card">
+        <p>
+            Attitude: 99% 😏<br>
+            Drama: 95% 🎭<br>
+            Overacting: 100% 🔥<br>
+            Logic: Not Found ❌😂<br><br>
+
+            Short aadru… sound full volume 😂<br>
+            Ninna brightness ge sun kuda competition ☀️🤣
+        </p>
+    </div>
+
+    <h3>Continue? 😈</h3>
+    <button class="yes" onclick="nextScreen(4)">Sareee 😍</button>
+    <button class="no" onclick="runAway()">Illa 😂</button>
+</div>
+
+<!-- SCREEN 4 -->
+<div id="screen4" class="screen">
+    <h2 id="typing"></h2>
+
+    <div class="card">
+        <p>
+            muchko odhko 😂🔥<br><br>
+
+            Ninna height swalpa kadime… aadre attitude full size 😏<br><br>
+
+            Short + white = pocket size LED light 🔦🤣<br><br>
+
+
+            BMW ge logic bekadre… Google search maadi 😂
+        </p>
+    </div>
+</div>
+
+<!-- SOUND -->
+<audio id="sound">
+    <source src="https://www.soundjay.com/human/sounds/fart-01.mp3">
+</audio>
+
+<script>
+function nextScreen(num) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById("screen" + num).classList.add("active");
+
+    document.getElementById("sound").play();
+
+    if (num === 2) startLoading();
+    if (num === 4) startTyping();
+}
+
+/* Loading bar */
+function startLoading() {
+    let bar = document.getElementById("bar");
+    let width = 0;
+
+    let interval = setInterval(() => {
+        width += 2;
+        bar.style.width = width + "%";
+
+        if (width >= 100) {
+            clearInterval(interval);
+            nextScreen(3);
+        }
+    }, 40);
+}
+
+/* Run away button */
+function runAway() {
+    let btns = document.querySelectorAll(".no");
+
+    btns.forEach(btn => {
+        btn.style.position = "fixed";
+        btn.style.left = Math.random() * (window.innerWidth - 120) + "px";
+        btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    });
+}
+
+/* Typing effect */
+function startTyping() {
+    let text = "😂 FINAL RESULT: BMW CONFIRMED";
+    let i = 0;
+
+    function type() {
+        if (i < text.length) {
+            document.getElementById("typing").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 70);
+        }
+    }
+    type();
+}
+
+/* Floating emojis */
+setInterval(() => {
+    let emoji = document.createElement("div");
+    let emojis = ["😂","🔥","😎","🤣"];
+    emoji.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+    emoji.className = "emoji";
+    emoji.style.left = Math.random() * window.innerWidth + "px";
+
+    document.body.appendChild(emoji);
+
+    setTimeout(() => emoji.remove(), 5000);
+}, 400);
+</script>
+
+</body>
+</html>
